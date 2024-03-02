@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSM Pharmacy - Medicines</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="header">
+    
+    <h1>KSM Pharmacy</h1>
+    <input type="text" id="search" placeholder="Search for medicine...">
+    
+</div>
+<h1>
+
+    <a href="{% url 'addMedicine' %}">add Medicine</a>
+</h1>
+
+<div class="medicines-container">
+    {% for medicine in data %}
+        <div class="medicine">
+            <h2>{{ medicine.MedicinesName }}</h2>
+            <p>{{ medicine.description }}</p>
+            <p>Price:{{ medicine.Price }}</p>
+            <p>Quantity:{{ medicine.Quantity }}</p>
+
+            <a href = "{%url 'DeleteMedicine' medicine.id%}">Delete</button>
+            <a href = "{%url 'UpdateMedicine' medicine.id%}">Update</button>
+        </div>
+    {% endfor %}
+</div>
+<script src="script.js"></script>
+</body>
+</html>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.medicines-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.medicine {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+</style>
+
+
+<script>
+    // JavaScript code for search functionality
+const searchInput = document.getElementById('search');
+
+searchInput.addEventListener('input', function() {
+    const searchValue = searchInput.value.toLowerCase();
+    const medicines = document.querySelectorAll('.medicine');
+    
+    medicines.forEach(function(medicine) {
+        const title = medicine.querySelector('h2').textContent.toLowerCase();
+        const description = medicine.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(searchValue) || description.includes(searchValue)) {
+            medicine.style.display = 'block';
+        } else {
+            medicine.style.display = 'none';
+        }
+    });
+});
+</script>
