@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Add Medicine</h1>
+    <a href="{%url 'logout' %}">Logout</a>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
